@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:background="#ffff883b">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Welcome"
+        android:id="@+id/textView"
+        android:textSize="35dp"
+        android:textColor="#ff020202" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Map View"
+        android:id="@+id/btnmapvw"
+        android:onClick="OnClick_MapView"
+        android:layout_gravity="center_vertical"
+        android:layout_below="@+id/textView"
+        android:layout_alignEnd="@+id/btngcy"
+        android:layout_marginTop="68dp"
+        android:textColor="#ff090909"
+        android:textSize="15dp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Grocery Stores"
+        android:id="@+id/btngcy"
+        android:layout_gravity="bottom"
+        android:layout_centerVertical="true"
+        android:layout_toEndOf="@+id/textView"
+        android:textSize="15dp"
+        android:textColor="#ff0b0b0b" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Marker For Current Location"
+        android:id="@+id/btnMk"
+        android:layout_gravity="center_vertical"
+        android:layout_below="@+id/btngcy"
+        android:layout_alignEnd="@+id/btngcy"
+        android:layout_marginTop="61dp"
+        android:textColor="#ff080808"
+        android:textSize="15dp" />
+
+</RelativeLayout>
