@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>View Recipe</title>
+  
+<button class="list" id="vr">Favorite Recipe</button>
+
+        <div class="recipe1"id="r1"></div>  
+
+
+  <script type='text/javascript' src='http://code.jquery.com/jquery-1.9.1.js'></script>
+  
+  
+  
+  
+  <script type="text/javascript" src="http://code.jquery.com/mobile/1.3.0-beta.1/jquery.mobile-1.3.0-beta.1.js"></script>
+  <link rel="stylesheet" type="text/css" href="http://code.jquery.com/mobile/1.3.0-beta.1/jquery.mobile-1.3.0-beta.1.css">
+  
+  <link rel="stylesheet" type="text/css" href="/css/result-light.css">
+  
+    
+      <script type='text/javascript' src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=true"></script>
+    
+  
+  
+  
+<body>
+
+<script type='text/javascript'>//<![CDATA[ 
+$(function(){
+var data2="";
+$("#vr").click(function(){
+    $.ajax({
+        url: 'http://kc-sce-cs551-2.kc.umkc.edu/aspnet_client/MPG12/Leela/ViewRecipeList/Service1.svc/viewRecipeList/gjh',
+  
+
+  dataType: 'json',
+
+  data: 'url',
+
+  success: function(data) {  
+      data = $.parseJSON(data);
+                     // console.log(data);
+     // alert(data);
+      //console.log(data.item_name);
+      $.each(data, function(index, value){
+          console.log(value.item_name);
+           data2+= '<tr><td>'+value.item_name+'</td></tr>';
+          //alert(value.item_name);
+      
+     
+                  htmlInsert= '<div class="recipe" id="'+index+'"><table><tr><td> '+data2 +'</td></tr></table></div><br/>';
+      $("#r1").html(htmlInsert);
+      });
+     
+        
+  }    
+});
+});
+});
+
+
+//]]>  
+
+</script>
+
+</body>
+</head>
+
+</html>
+

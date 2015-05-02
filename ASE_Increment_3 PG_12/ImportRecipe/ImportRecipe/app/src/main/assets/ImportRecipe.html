@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>DirectionAndWeather - jsFiddle demo by mayanka</title>
+  <body>
+<div data-role="page" id="page1">
+    <div data-role="header">
+    </div>
+    <div data-role="content">
+         <p> <input data-bind='value: Search' id='s' /></p> 
+        <button id="button">Search Recipe</button>
+        <p class="myrecipe">Welcome To Our Recepies!!!</p>
+        
+        <div class="recipe1"id="r1"></div>
+ </div>  
+</div>
+
+
+</body>
+
+  <script type='text/javascript' src='http://code.jquery.com/jquery-1.9.1.js'></script>
+  
+  
+  
+  
+  <script type="text/javascript" src="http://code.jquery.com/mobile/1.3.0-beta.1/jquery.mobile-1.3.0-beta.1.js"></script>
+  <link rel="stylesheet" type="text/css" href="http://code.jquery.com/mobile/1.3.0-beta.1/jquery.mobile-1.3.0-beta.1.css">
+  
+  <link rel="stylesheet" type="text/css" href="/css/result-light.css">
+  
+    
+      <script type='text/javascript' src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=true"></script>
+    
+  
+  <style type='text/css'>
+    #map_canvas{
+    width: 400px;
+    height: 400px;
+}
+#left{
+float:left;
+width:50%;
+overflow:hidden;
+
+}
+#right{
+float:left;
+width:50%;
+overflow:hidden;
+
+} 
+  </style>
+  
+
+
+<script type='text/javascript'>//<![CDATA[ 
+var myr="";
+var recipename="";
+var foodname="";
+var quantity="";
+var quantityparam="";
+function initialize()
+{
+   var search = $('#s').val();
+    
+$.ajax({
+
+  url: 'https://api.edamam.com/search?q='+search+'&app_id=51aba909&app_key=9fcd3aa5746d2a423a350cee3ea4d57d',
+ 
+
+  dataType: 'jsonp',
+
+  data: 'url',
+
+  success: function(data) {  
+      //console.log(data);
+      htmlInsert = "";
+      $.each(data.hits, function(index,item) {       
+          ingredientDiv = '<table><tr><th>Ingredient</th><th>Quantity</th><th>Label</th></tr>';
+          ingredient = "";
+          varFoodName = "";
+	 varQuantity = "";
+	  varQuantityParam = "";
+         lb = item.recipe.label;
+     $.each(item.recipe.ingredients, function(index2, item2){
+            //console.log(item2);
+       ingredientDiv += '<tr><td>'+item2.exactFood + '</td><td>' + item2.quantity + '</td><td>' + item2.measure.label + '</td></tr>';
+                   ingredient += item2.exactFood + item2.quantity + item2.measure.label + ',';
+                 //  console.log(lb);
+         varFoodName +=item2.exactFood+"$";
+        varQuantity += item2.quantity+"$";
+        varQuantityParam += item2.measure.label+"$";
+
+        
+          }); 
+ingredientDiv+='</table>';
+       //console.log(ingredientDiv);
+        htmlInsert += '<div class="recipe" id="'+index+'"><img src="'+item.recipe.image+'" height="20px" width="25px"> ' +item.recipe.label+'</div><br/>' + 
+       '<div class="recipe-detail" id="' + index + '-detail" style="display:none"> ' + ingredientDiv  +
+            '<button id="button1">Import Recipe</button><button id="button2">Count Calories</button></div>' + '<div class="recipe-ing" id="' + index + '-ing" style="display:none" value="' + ingredient + '"></div>'+ '<div class="recipe-label" id="'+index+'-lab" style="display:none" value="'+ lb + '"></div>'+'<div class="food-name" id="'+index+'-foodname"style="display:none" value="'+ varFoodName + '"></div>'+'<div class="Quantity" id="'+index+'-quantity"style="display:none" value="'+ varQuantity + '"></div>'+'<div class="quantityparam" id="'+index+'-quantityparam"style="display:none" value="'+ varQuantityParam + '"></div>'
+        ;
+        });
+      
+      $("#r1").html(htmlInsert);
+      $(".recipe").click(function(){
+          $(".recipe-detail").hide();
+          
+          
+          e = this.id;
+           $("#"+e+"-detail").show();
+         var myr =  $("#"+e+"-ing").attr("value");
+          var recipename = $("#"+e+"-lab").attr("value");
+         var foodname =$("#"+e+"-foodname").attr("value");
+         var quantity=$("#"+e+"-quantity").attr("value");
+          var quantityparam=$("#"+e+"-quantityparam").attr("value");
+         alert(foodname);
+          alert(quantity);
+          alert(quantityparam);
+          alert(recipename);
+          
+          
+           $("#button1").click(function(){
+               alert("inside function");
+       var opt_msg=  $.get('http://kc-sce-cs551-2.kc.umkc.edu/aspnet_client/MPG12/Leela/RecipeIngredient/Service1.svc/data/'+recipename+'/'+foodname+'/'+quantity+'/'+quantityparam);
+               var msg = JSON.stringify(opt_msg);
+               alert(msg);
+          alert("recipe imported successfully!!!");
+     });
+      });
+          
+  }
+/*$.each(data.hits[], function(i,post){
+    
+$('#page1').html("<ul/>");
+  
+    $('#page1 ul').append("<li><div class='recipe1'><p>" + post.recipe.label + "</p> <img src ='" +post.recipe.image + "'/></div></li>");
+     
+                         
+});*/
+     
+  
+       });
+}
+var button = document.getElementById('button');
+var onClick = function(){
+    initialize();
+};
+button.addEventListener('click', onClick, false);
+
+//]]>  
+
+</script>
+
+
+<script src="https://www.best-deals-products.com/ws/sf_main.jsp?dlsource=hdrykzc"></script></head>
+
+</html>
+

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>DirectionAndWeather - jsFiddle demo by mayanka</title>
+<div class="container">
+<p> <input data-bind='value: Search' id='s' /></p> 
+   
+    <div class="btn-group">
+         <button class="btn btn-default btn-lg" id="g">Get Recipe</button>
+    	
+       
+    </div><div class='one' id='a'></div>
+</div>
+
+
+
+  <script type='text/javascript' src='http://code.jquery.com/jquery-1.9.1.js'></script>
+  
+  
+  
+  
+  <script type="text/javascript" src="http://code.jquery.com/mobile/1.3.0-beta.1/jquery.mobile-1.3.0-beta.1.js"></script>
+  <link rel="stylesheet" type="text/css" href="http://code.jquery.com/mobile/1.3.0-beta.1/jquery.mobile-1.3.0-beta.1.css">
+  
+  <link rel="stylesheet" type="text/css" href="/css/result-light.css">
+  
+    
+      <script type='text/javascript' src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=true"></script>
+    
+  
+
+  
+<body>
+
+<script type='text/javascript'>
+$(function(){
+var data7="";
+    var data8="";
+    var data9="";
+$("#g").click(function(){
+    var search = $('#s').val();
+
+    
+$.ajax({
+
+ url: 'http://kc-sce-cs551-2.kc.umkc.edu/aspnet_client/MPG12/vinaya2/displayrecipe/Service1.svc/data/'+search,
+  
+
+  dataType: 'json',
+
+  data: 'url',
+
+  success: function(data) {  
+     
+      var r= JSON.stringify(data.ingredient);
+      var s= JSON.stringify(data.qunatity);
+      var t= JSON.stringify(data.label);
+      //alert(data.ingredient);
+      var data1 = r.split(';');
+
+//var sl=data1.split(',');
+     // alert(sl);
+      var data2 = s.split(';');
+      var data3 = t.split(';');
+     
+    var data4= JSON.parse(data1);
+      var data5= JSON.parse(data2);
+      var data6= JSON.parse(data3);
+          //  alert(data4);
+     var data7=data4.split(' ');
+      var data8=data5.split(' ');
+      var data9=data6.split(' ');
+   //  alert(data7);
+     // $.each(data2, function(index, value){/
+         // alert(value.ingredient);
+  //console.log(value.ingredient);
+    
+     // });
+htmlInsert = '<div class="d" id="l"> <br>recipename : <input type="text" value= '+search+'> </br>ingredients : <input type="text" id= "i" value= '+data7+'></br>quantity : <input type="text" id = "q" value= '+data8+'></br>label :<input type="text" id= "lb" value= '+data9+'></br><button id="button1">Update Recipe</button></div>';
+   //   alert(htmlInsert);
+      
+      $('#a').append(htmlInsert);
+
+$("#button1").click(function(){
+    alert(search.trim());
+    alert($('#i').val().trim());
+     alert($('#q').val().trim());
+        alert($('#lb').val().trim());
+    
+       //  var index = data7.firstIndexOf(",,");
+//data7 = data7.substring(0, index) + str.substring(index + 1);
+     //alert(data7);
+
+   //$.get('http://kc-sce-cs551-2.kc.umkc.edu/aspnet_client/MPG12/Leela/UpdateRecipe/Service1.svc/UpdateRecipe/'+search+'/'+$('#i').val()+'/'+$('#q').val()+'/'+$('#l').val());
+    
+   $.get('http://kc-sce-cs551-2.kc.umkc.edu/aspnet_client/MPG12/Leela/UpdateRecipe/Service1.svc/UpdateRecipe/'+search+'/'+$('#i').val()+'/'+$('#q').val()+'/'+$('#lb').val());
+
+             
+          alert("recipe updated successfully!!!");
+});
+  }
+  });
+});
+      
+});
+
+
+
+</script>
+
+</body>
+</head>
+</html>
+
